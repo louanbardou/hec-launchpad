@@ -38,9 +38,9 @@ export function Login() {
           </form>
         ) : (
           <form onSubmit={verify} className="mt-8 space-y-3">
-            <p className="text-sm opacity-90">Un code à 6 chiffres a été envoyé à <b>{email}</b>. Tu peux aussi cliquer sur le lien dans l'email.</p>
+            <p className="text-sm opacity-90">Email envoyé à <b>{email}</b>. Clique sur le lien <b>depuis cet appareil</b>, ou saisis le code à 6 chiffres s'il figure dans l'email.</p>
             <input className="input !bg-white !text-slate-900 text-center tracking-[0.4em] text-xl" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]*" maxLength={6} autoFocus required placeholder="••••••" value={code} onChange={(e) => setCode(e.target.value)} />
-            <button className="btn w-full !bg-gold !text-navy" disabled={busy}>{busy ? 'Vérification…' : 'Entrer'}</button>
+            <button className="btn w-full !bg-gold !text-navy" disabled={busy || code.replace(/\D/g, '').length < 6}>{busy ? 'Vérification…' : 'Entrer'}</button>
             <button type="button" className="btn-ghost w-full !text-white !border-white/30" onClick={() => setStep('email')}>Changer d'email</button>
           </form>
         )}
